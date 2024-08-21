@@ -3,88 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bulma Task Manager</title>
+    <title>Task Manager</title>
     <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
+    <link rel= "stylesheet" href= "styles.css">
+
+    <style>
+
+        /* Estilos para asegurar la responsividad mobile-first */
+        .columns {
+            overflow-x: scroll;
+            display: flex;
+            flex-wrap: nowrap;
+        }
+
+        .column {
+            min-width: 300px;
+            margin-right: 10px;
+        }
+
+        @media (min-width: 768px) {
+            .columns {
+                flex-wrap: wrap;
+            }
+
+            .column {
+                flex: 1;
+                min-width: unset;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="columns">
+    <div class="columns is-mobile">
         <div class="column">
             <h2 class="title is-4">Backlog</h2>
-            <form>
-                <div class="field">
-                    <label class="label">Título</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Título de la tarea">
-                    </div>
-                </div>
-                <div class="field">
-                    <label class="label">Descripción</label>
-                    <div class="control">
-                        <textarea class="textarea" placeholder="Descripción de la tarea"></textarea>
-                    </div>
-                </div>
-                <div class="field">
-                    <label class="label">Asignado</label>
-                    <div class="control">
-                        <div class="select">
-                            <select>
-                                <option>Persona 1</option>
-                                <option>Persona 2</option>
-                                <option>Persona 3</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="field">
-                    <label class="label">Prioridad</label>
-                    <div class="control">
-                        <div class="select">
-                            <select>
-                                <option>Baja</option>
-                                <option>Media</option>
-                                <option>Alta</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="field">
-                    <label class="label">Estado</label>
-                    <div class="control">
-                        <div class="select">
-                            <select>
-                                <option>Backlog</option>
-                                <option>To Do</option>
-                                <option>In Progress</option>
-                                <option>Blocked</option>
-                                <option>Done</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="field">
-                    <label class="label">Fecha límite</label>
-                    <div class="control">
-                        <input class="input" type="date">
-                    </div>
-                </div>
-            </form>
+        
+            <div class="box">
+                <h3 class="title is-5">Investigación de mercado</h3>
+                <p>Investigar aplicaciones de finanzas personales competidoras 
+                    y evaluar sus características.</p>
+                <p><strong>Asignado a:</strong> Juan Gonzalez</p>
+                <p><strong>Prioridad:</strong> Alta</p>
+                <p><strong>Fecha límite:</strong> 2024-08-31</p>
+            </div>
+
+            <div class="box">
+                <h3 class="title is-5">Recopilación de requerimientos</h3>
+                <p>Reunir los requerimientos del cliente para la 
+                    funcionalidad de la aplicación.</p>
+                <p><strong>Asignado a:</strong> Juan Gonzalez</p>
+                <p><strong>Prioridad:</strong> Alta</p>
+                <p><strong>Fecha límite:</strong> 2024-08-31</p>
+
+            </div>
         </div>
 
         <div class="column">
             <h2 class="title is-4">To Do</h2>
-        </div>
+            <div class="box">
+                <h3 class="title is-5">Especificación de casos de uso</h3>
+                <p>Escribir los casos de uso para la funcionalidad de seguimiento de gastos.</p>
+                <p><strong>Asignado a:</strong> Ricardo Martínez</p>
+                <p><strong>Prioridad:</strong> Alta</p>
+                <p><strong>Fecha límite:</strong> 2024-09-5</p>
+            </div>
+                    </div>
 
         <div class="column">
             <h2 class="title is-4">In Progress</h2>
-        </div>
-        
+            <div class="box">
+                <h3 class="title is-5">Título de la Tarea</h3>
+                <p>Descripción de la tarea...</p>
+                <p><strong>Asignado a:</strong> Persona 1</p>
+                <p><strong>Prioridad:</strong> Alta</p>
+                <p><strong>Fecha límite:</strong> 2024-08-31</p>
+            </div>
+                    </div>
+
         <div class="column">
             <h2 class="title is-4">Blocked</h2>
-        </div>
+            <div class="box">
+                <h3 class="title is-5">Título de la Tarea</h3>
+                <p>Descripción de la tarea...</p>
+                <p><strong>Asignado a:</strong> Persona 1</p>
+                <p><strong>Prioridad:</strong> Alta</p>
+                <p><strong>Fecha límite:</strong> 2024-08-31</p>
+            </div>
+                    </div>
 
         <div class="column">
             <h2 class="title is-4">Done</h2>
-        </div>
+            <div class="box">
+                <h3 class="title is-5">Título de la Tarea</h3>
+                <p>Descripción de la tarea...</p>
+                <p><strong>Asignado a:</strong> Persona 1</p>
+                <p><strong>Prioridad:</strong> Alta</p>
+                <p><strong>Fecha límite:</strong> 2024-08-31</p>
+            </div>
+                    </div>
     </div>
+    <script>src= "style.css"</script>
 </body>
 </html>
