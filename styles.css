@@ -1,6 +1,6 @@
-/* Estilos generales para el Task Manager */
+/* Estilos generales */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
 }
 
 h1 {
@@ -11,7 +11,7 @@ h1 {
     margin-bottom: 15px;
     padding: 15px;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #ffffff;
     cursor: grab;
 }
@@ -21,74 +21,52 @@ h1 {
 }
 
 .columns {
-    overflow-x: scroll;
+    overflow-x: auto;
     display: flex;
     flex-wrap: nowrap;
 }
 
 .column {
     min-width: 300px;
-    margin-right: 10px;
 }
 
 .column h2 {
     margin-bottom: 10px;
 }
 
-/* Estilos para el modal */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    align-items: center;
-    justify-content: center;
-}
-
+/* Modal styles */
 .modal.is-active {
     display: flex;
 }
 
 .modal-background {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {
-    position: relative;
-    background: #ffffff;
+    background-color: white;
     padding: 20px;
     border-radius: 5px;
     max-width: 500px;
-    width: 100%;
 }
 
-.modal-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 2rem;
-    color: #000;
-    cursor: pointer;
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
 }
 
-/* Estilos para las columnas al arrastrar sobre ellas */
+body.dark-mode .box {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+body.dark-mode .modal-content {
+    background-color: #282828;
+}
+
+/* Column drop zones */
 .column.over {
     border: 2px dashed #3273dc;
     background-color: #f5f5f5;
-}
-
-@media (min-width: 768px) {
-    .columns {
-        flex-wrap: wrap;
-    }
-
-    .column {
-        flex: 1;
-        min-width: unset;
-    }
 }
