@@ -27,13 +27,6 @@ body {
     box-shadow: 0 4px 8px black;
 }
 
-/* Encabezado de columna */
-.column h2 {
-    font-size: 1.5rem;
-    color: black;
-    margin-bottom: 15px;
-}
-
 /* Estilos para las tareas (cards) */
 .box {
     margin-bottom: 15px;
@@ -44,14 +37,11 @@ body {
     box-shadow: 0 2px 5px black;
 }
 
-/* Scroll vertical en las columnas */
-.column {
-    overflow-y: auto;
-    max-height: calc(100vh - 50px);
-}
-
 /* Botón de nueva tarea */
 .new-task-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
     background-color: blue;
     color: white;
     border: none;
@@ -69,7 +59,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.6);
     justify-content: center;
     align-items: center;
 }
@@ -80,91 +70,9 @@ body {
     border-radius: 8px;
     width: 90%;
     max-width: 500px;
-}
-
-/* Responsividad */
-@media (max-width: 425px) {
-    .modal-content {
-        width: 100%;
-        margin: 0;
-        padding: 10px;
-    }
-}
-
-
-.column {
-    flex: 1;
-    margin-right: 0;
-    margin-bottom: 20px;
-}
-
-.new-task-button {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-}
-
-
-/* Estilos para asegurar la responsividad mobile-first */
-.columns {
-    overflow-x: scroll;
-    display: flex;
-    flex-wrap: nowrap;
-}
-
-.column {
-    min-width: 300px;
-    margin-right: 10px;
-}
-
-.box {
-    margin-bottom: 10px;
-    background-color: white;
-    /* Color puro */
-}
-
-.modal {
-    display: none;
-    /* Ocultar el modal por defecto */
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: black;
-    /* Fondo del modal */
-}
-
-.modal-content {
-    background: white;
-    /* Color de fondo del contenido del modal */
-    padding: 20px;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 500px;
-}
-
-button.is-primary {
-    margin-bottom: 20px;
 }
 
 /* Dark/Light mode */
-body.dark-mode .box {
-    background-color: black;
-    color: white;
-}
-
-body.dark-mode .modal-content {
-    background-color: bla;
-    color: white;
-}
-
-body.dark-mode .modal-background {
-    background-color: black;
-}
-
 body.dark-mode {
     background-color: black;
     color: white;

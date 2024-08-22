@@ -53,6 +53,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Crear una nueva tarea
     function createTask(taskData) {
+        const state = document.querySelector('#taskState').value;
+        const column = document.querySelector(`.column h2:contains(${state})`).parentElement;
+
         const taskHTML = `
             <div class="box" draggable="true">
                 <h3 class="title is-5">${taskData.title}</h3>
@@ -63,21 +66,18 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
         `;
 
-        // Insertar en la columna de Backlog por defecto (o según el estado)
-        const backlogColumn = document.querySelector('.column:first-child');
-        backlogColumn.innerHTML += taskHTML;
+        column.innerHTML += taskHTML;
 
-        // Volver a hacer las nuevas tareas "draggable"
         initDragAndDrop();
     }
 
     // Editar una tarea existente
     function updateTask(taskElement, taskData) {
         taskElement.querySelector('h3').textContent = taskData.title;
-        taskElement.querySelector('p:nth-child(2)').textContent = taskData.description;
-        taskElement.querySelector('p:nth-child(3)').textContent = `Asignado a: ${taskData.assignedTo}`;
-        taskElement.querySelector('p:nth-child(4)').textContent = `Prioridad: ${taskData.priority}`;
-        taskElement.querySelector('p:nth-child(5)').textContent = `Fecha límite: ${taskData.dueDate}`;
+        taskElement.querySelector('p:nth-of-type(1)').textContent = taskData.description;
+        taskElement.querySelector('p:nth-of-type(2)').textContent = `Asignado a: ${taskData.assignedTo}`;
+        taskElement.querySelector('p:nth-of-type(3)').textContent = `Prioridad: ${taskData.priority}`;
+        taskElement.querySelector('p:nth-of-type(4)').textContent = `Fecha límite: ${taskData.dueDate}`;
     }
 
     // Drag and Drop
@@ -99,18 +99,18 @@ document.addEventListener("DOMContentLoaded", () => {
             column.addEventListener('dragover', (e) => {
                 e.preventDefault();
                 const afterElement = getDragAfterElement(column, e.clientY);
-                const draggable = document.querySelector('.dragging');
+                const dragging = document.querySelector('.dragging');
                 if (afterElement == null) {
-                    column.appendChild(draggable);
+                    column.appendChild(dragging);
                 } else {
-                    column.insertBefore(draggable, afterElement);
+                    column.insertBefore(dragging, afterElement);
                 }
             });
         });
     }
 
-    function getDragAfterElement(container, y) {
-        const draggableElements = [...container.querySelectorAll('.box:not(.dragging)')];
+    function getDragAfterElement(column, y) {
+        const draggableElements = [...column.querySelectorAll('.box:not(.dragging)')];
 
         return draggableElements.reduce((closest, child) => {
             const box = child.getBoundingClientRect();
@@ -123,71 +123,5 @@ document.addEventListener("DOMContentLoaded", () => {
         }, { offset: Number.NEGATIVE_INFINITY }).element;
     }
 
-    // Initialize drag and drop after DOM content is loaded
     initDragAndDrop();
-});
-document.addEventListener('DOMContentLoaded', () => {
-    const taskModal = document.getElementById('taskModal');
-    const newTaskButton = document.getElementById('newTaskButton');
-    const cancelTaskButton = document.getElementById('cancelTask');
-    const taskForm = document.getElementById('taskForm');
-    const columns = document.querySelectorAll('.column');
-
-    // Open modal
-    newTaskButton.addEventListener('click', () => {
-        taskModal.style.display = 'flex';
-    });
-
-    // Close modal
-    cancelTaskButton.addEventListener('click', () => {
-        taskModal.style.display = 'none';
-    });
-
-    // Close modal when clicking outside content
-    taskModal.addEventListener('click', (e) => {
-        if (e.target === taskModal) {
-            taskModal.style.display = 'none';
-        }
-    });
-
-    // Handle drag and drop
-    columns.forEach(column => {
-        column.addEventListener('dragover', (e) => {
-            e.preventDefault();
-        });
-
-        column.addEventListener('drop', (e) => {
-            e.preventDefault();
-            const data = e.dataTransfer.getData('text');
-            const task = document.getElementById(data);
-            column.appendChild(task);
-        });
-    });
-
-    document.querySelectorAll('.box').forEach(box => {
-        box.addEventListener('dragstart', (e) => {
-            e.dataTransfer.setData('text', e.target.id);
-        });
-    });
-});
-function createTask(taskData) {
-    const state = document.querySelector('#taskState').value;
-    const column = document.querySelector(`.column:has(h2:contains(${state}))`);
-
-    const taskHTML = `
-        <div class="box" draggable="true">
-            <h3 class="title is-5">${taskData.title}</h3>
-            <p>${taskData.description}</p>
-            <p><strong>Asignado a:</strong> ${taskData.assignedTo}</p>
-            <p><strong>Prioridad:</strong> ${taskData.priority}</p>
-            <p><strong>Fecha límite:</strong> ${taskData.dueDate}</p>
-        </div>
-    `;
-
-    column.innerHTML += taskHTML;
-
-    initDragAndDrop();
-}
-document.querySelector('.dark-mode-button').addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
 });

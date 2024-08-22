@@ -40,14 +40,13 @@
             <h1 class="title has-text-centered">Task Manager</h1>
             <button class="button is-primary new-task-button">Add New Task</button>
 
-            <div class="columns is-mobile">
+            <div class="columns is-mobile" id="taskColumns">
                 <!-- Column 1: Backlog -->
-                <div class="column">
+                <div class="column" id="backlog">
                     <h2 class="title is-4">Backlog</h2>
                     <div class="box" draggable="true">
                         <h3 class="title is-5">Investigación de mercado</h3>
-                        <p>Investigar aplicaciones de finanzas personales competidoras y evaluar sus características.
-                        </p>
+                        <p>Investigar aplicaciones de finanzas personales competidoras y evaluar sus características.</p>
                         <p><strong>Asignado a:</strong> Juan Gonzalez</p>
                         <p><strong>Prioridad:</strong> Alta</p>
                         <p><strong>Fecha límite:</strong> 2024-08-31</p>
@@ -62,19 +61,19 @@
                 </div>
 
                 <!-- Column 2: To Do -->
-                <div class="column">
+                <div class="column" id="todo">
                     <h2 class="title is-4">To Do</h2>
                     <div class="box" draggable="true">
                         <h3 class="title is-5">Especificación de casos de uso</h3>
                         <p>Escribir los casos de uso para la funcionalidad de seguimiento de gastos.</p>
                         <p><strong>Asignado a:</strong> Ricardo Martínez</p>
                         <p><strong>Prioridad:</strong> Alta</p>
-                        <p><strong>Fecha límite:</strong> 2024-09-5</p>
+                        <p><strong>Fecha límite:</strong> 2024-09-05</p>
                     </div>
                 </div>
 
                 <!-- Column 3: In Progress -->
-                <div class="column">
+                <div class="column" id="in-progress">
                     <h2 class="title is-4">In Progress</h2>
                     <div class="box" draggable="true">
                         <h3 class="title is-5">Desarrollo del módulo de autenticación</h3>
@@ -86,7 +85,7 @@
                 </div>
 
                 <!-- Column 4: Blocked -->
-                <div class="column">
+                <div class="column" id="blocked">
                     <h2 class="title is-4">Blocked</h2>
                     <div class="box" draggable="true">
                         <h3 class="title is-5">Integración con API bancaria</h3>
@@ -98,7 +97,7 @@
                 </div>
 
                 <!-- Column 5: Done -->
-                <div class="column">
+                <div class="column" id="done">
                     <h2 class="title is-4">Done</h2>
                     <div class="box" draggable="true">
                         <h3 class="title is-5">Prototipo de la pantalla de inicio</h3>
