@@ -23,10 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.classList.toggle("dark-mode");
     });
 
-    // Task form submission handling
     taskForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        // Aquí agregamos la lógica para guardar o actualizar la tarea
         modal.classList.remove("is-active");
     });
 
