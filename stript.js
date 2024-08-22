@@ -126,3 +126,47 @@ document.addEventListener("DOMContentLoaded", () => {
     // Initialize drag and drop after DOM content is loaded
     initDragAndDrop();
 });
+document.addEventListener('DOMContentLoaded', () => {
+    const taskModal = document.getElementById('taskModal');
+    const newTaskButton = document.getElementById('newTaskButton');
+    const cancelTaskButton = document.getElementById('cancelTask');
+    const taskForm = document.getElementById('taskForm');
+    const columns = document.querySelectorAll('.column');
+
+    // Open modal
+    newTaskButton.addEventListener('click', () => {
+        taskModal.style.display = 'flex';
+    });
+
+    // Close modal
+    cancelTaskButton.addEventListener('click', () => {
+        taskModal.style.display = 'none';
+    });
+
+    // Close modal when clicking outside content
+    taskModal.addEventListener('click', (e) => {
+        if (e.target === taskModal) {
+            taskModal.style.display = 'none';
+        }
+    });
+
+    // Handle drag and drop
+    columns.forEach(column => {
+        column.addEventListener('dragover', (e) => {
+            e.preventDefault();
+        });
+
+        column.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const data = e.dataTransfer.getData('text');
+            const task = document.getElementById(data);
+            column.appendChild(task);
+        });
+    });
+
+    document.querySelectorAll('.box').forEach(box => {
+        box.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text', e.target.id);
+        });
+    });
+});
