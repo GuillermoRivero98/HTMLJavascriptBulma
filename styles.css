@@ -1,53 +1,41 @@
-/* Estilos base */
+/* Estilos generales para el Task Manager */
 body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: white;
-    color: black;
+    font-family: Arial, sans-serif;
 }
 
-/* Estilos para las columnas */
-.columns {
-    display: flex;
-    overflow-x: auto;
-    height: 100vh;
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-.column {
-    min-width: 300px;
-    margin-right: 10px;
-    background-color: white;
-    border-radius: 8px;
-    padding: 10px;
-    box-shadow: 0 4px 8px black;
-    overflow-y: auto;
+h1 {
+    margin-bottom: 20px;
 }
 
 .box {
     margin-bottom: 15px;
     padding: 15px;
-    background-color: white;
-    border: 1px solid white;
-    border-radius: 6px;
-    box-shadow: black;
-}
-
-.new-task-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: blueviolet;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
     border-radius: 5px;
-    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: #ffffff;
+    cursor: grab;
 }
 
+.box.dragging {
+    opacity: 0.5;
+}
+
+.columns {
+    overflow-x: scroll;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.column {
+    min-width: 300px;
+    margin-right: 10px;
+}
+
+.column h2 {
+    margin-bottom: 10px;
+}
+
+/* Estilos para el modal */
 .modal {
     display: none;
     position: fixed;
@@ -55,30 +43,52 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: black;
-    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
     align-items: center;
+    justify-content: center;
+}
+
+.modal.is-active {
+    display: flex;
+}
+
+.modal-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
 
 .modal-content {
-    background-color: white;
+    position: relative;
+    background: #ffffff;
     padding: 20px;
-    border-radius: 8px;
-    width: 90%;
+    border-radius: 5px;
     max-width: 500px;
+    width: 100%;
 }
 
-/* Dark/Light mode */
-body.dark-mode {
-    background-color: black;
-    color: white;
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 2rem;
+    color: #000;
+    cursor: pointer;
 }
 
-body.dark-mode .box {
-    background-color: black;
+/* Estilos para las columnas al arrastrar sobre ellas */
+.column.over {
+    border: 2px dashed #3273dc;
+    background-color: #f5f5f5;
 }
 
-body.dark-mode .modal-content {
-    background-color: black;
-    color: white;
+@media (min-width: 768px) {
+    .columns {
+        flex-wrap: wrap;
+    }
+
+    .column {
+        flex: 1;
+        min-width: unset;
+    }
 }

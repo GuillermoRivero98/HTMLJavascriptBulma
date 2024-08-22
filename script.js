@@ -1,122 +1,102 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const newTaskButton = document.querySelector('.new-task-button');
-    const taskModal = document.querySelector('#taskModal');
-    const modalClose = document.querySelector('.modal-close');
-    const cancelTaskButton = document.querySelector('#cancelTask');
-    const taskForm = document.querySelector('#taskForm');
-    const taskColumns = document.querySelector('#taskColumns');
+// Variables para manejar el modal
+const taskModal = document.getElementById('taskModal');
+const newTaskButton = document.querySelector('.new-task-button');
+const cancelTaskButton = document.getElementById('cancelTask');
+const taskForm = document.getElementById('taskForm');
+const taskColumns = document.getElementById('taskColumns');
 
-    let currentTask = null;
-    let draggedTask = null;
+// Función para abrir el modal
+newTaskButton.addEventListener('click', () => {
+    taskModal.classList.add('is-active');
+});
 
-    newTaskButton.addEventListener('click', () => {
-        currentTask = null;
-        taskForm.reset();
-        document.querySelector('#taskState').value = 'Backlog';
-        taskModal.classList.add('is-active');
-    });
+// Función para cerrar el modal
+cancelTaskButton.addEventListener('click', () => {
+    taskModal.classList.remove('is-active');
+});
 
-    const closeModal = () => {
-        taskModal.classList.remove('is-active');
-    };
+// Función para manejar el envío del formulario
+taskForm.addEventListener('submit', (event) => {
+    event.preventDefault();
 
-    modalClose.addEventListener('click', closeModal);
-    cancelTaskButton.addEventListener('click', closeModal);
+    // Obtener valores del formulario
+    const title = document.getElementById('taskTitle').value;
+    const description = document.getElementById('taskDescription').value;
+    const assigned = document.getElementById('taskAssigned').value;
+    const priority = document.getElementById('taskPriority').value;
+    const dueDate = document.getElementById('taskDueDate').value;
+    const state = document.getElementById('taskState').value;
 
-    taskForm.addEventListener('submit', (event) => {
-        event.preventDefault();
+    // Crear una nueva tarea
+    const newTask = document.createElement('div');
+    newTask.classList.add('box');
+    newTask.draggable = true;
+    newTask.innerHTML = `
+        <h3 class="title is-5">${title}</h3>
+        <p>${description}</p>
+        <p><strong>Asignado a:</strong> ${assigned}</p>
+        <p><strong>Prioridad:</strong> ${priority}</p>
+        <p><strong>Fecha límite:</strong> ${dueDate}</p>
+    `;
 
-        const title = document.querySelector('#taskTitle').value;
-        const description = document.querySelector('#taskDescription').value;
-        const assignedTo = document.querySelector('#taskAssigned').value;
-        const priority = document.querySelector('#taskPriority').value;
-        const dueDate = document.querySelector('#taskDueDate').value;
-        const state = document.querySelector('#taskState').value;
+    // Añadir la nueva tarea a la columna correspondiente
+    const targetColumn = document.getElementById(state.toLowerCase().replace(' ', '-'));
+    targetColumn.appendChild(newTask);
 
-        const taskData = {
-            title,
-            description,
-            assignedTo,
-            priority,
-            dueDate
-        };
+    // Cerrar el modal
+    taskModal.classList.remove('is-active');
+    taskForm.reset();
+});
 
-        if (currentTask) {
-            updateTask(currentTask, taskData, state);
-        } else {
-            createTask(taskData, state);
-        }
-
-        closeModal();
-    });
-
-    function createTask(taskData, state) {
-        const column = document.querySelector(`#${state.toLowerCase().replace(' ', '-')}`);
-        const taskElement = document.createElement('div');
-        taskElement.className = 'box';
-        taskElement.draggable = true;
-        taskElement.innerHTML = `
-            <h3 class="title is-5">${taskData.title}</h3>
-            <p>${taskData.description}</p>
-            <p><strong>Assigned to:</strong> ${taskData.assignedTo}</p>
-            <p><strong>Priority:</strong> ${taskData.priority}</p>
-            <p><strong>Due Date:</strong> ${taskData.dueDate}</p>
-            <button class="button is-small is-danger delete-task">Delete</button>
-        `;
-
-        taskElement.addEventListener('dragstart', (event) => {
-            draggedTask = event.target;
-            event.dataTransfer.effectAllowed = 'move';
-        });
-
-        taskElement.addEventListener('dragend', () => {
-            draggedTask = null;
-        });
-
-        taskElement.querySelector('.delete-task').addEventListener('click', () => {
-            column.removeChild(taskElement);
-        });
-
-        column.appendChild(taskElement);
+// Funciones para manejar el arrastre y soltar tareas
+document.addEventListener('dragstart', (event) => {
+    if (event.target.classList.contains('box')) {
+        event.dataTransfer.setData('text/plain', event.target.innerHTML);
+        event.dataTransfer.setData('text/plain', event.target.parentElement.id);
+        event.target.classList.add('dragging');
     }
+});
 
-    function updateTask(taskElement, taskData, newState) {
-        const taskColumn = document.querySelector(`#${newState.toLowerCase().replace(' ', '-')}`);
-        taskColumn.appendChild(taskElement);
-
-        taskElement.innerHTML = `
-            <h3 class="title is-5">${taskData.title}</h3>
-            <p>${taskData.description}</p>
-            <p><strong>Assigned to:</strong> ${taskData.assignedTo}</p>
-            <p><strong>Priority:</strong> ${taskData.priority}</p>
-            <p><strong>Due Date:</strong> ${taskData.dueDate}</p>
-            <button class="button is-small is-danger delete-task">Delete</button>
-        `;
-
-        taskElement.querySelector('.delete-task').addEventListener('click', () => {
-            taskColumn.removeChild(taskElement);
-        });
+document.addEventListener('dragend', (event) => {
+    if (event.target.classList.contains('box')) {
+        event.target.classList.remove('dragging');
     }
+});
 
-    taskColumns.addEventListener('dragover', (event) => {
-        event.preventDefault();
-        event.dataTransfer.dropEffect = 'move';
-    });
+document.addEventListener('dragover', (event) => {
+    event.preventDefault();
+    if (event.target.classList.contains('column')) {
+        event.target.classList.add('over');
+    }
+});
 
-    taskColumns.addEventListener('drop', (event) => {
-        event.preventDefault();
-        if (draggedTask) {
-            const targetColumn = event.target.closest('.column');
-            if (targetColumn && targetColumn !== draggedTask.parentElement) {
-                const state = targetColumn.dataset.state;
-                updateTask(draggedTask, {
-                    title: draggedTask.querySelector('h3').textContent,
-                    description: draggedTask.querySelector('p').textContent,
-                    assignedTo: draggedTask.querySelector('p:nth-of-type(2)').textContent.split(': ')[1],
-                    priority: draggedTask.querySelector('p:nth-of-type(3)').textContent.split(': ')[1],
-                    dueDate: draggedTask.querySelector('p:nth-of-type(4)').textContent.split(': ')[1],
-                }, state);
+document.addEventListener('dragleave', (event) => {
+    if (event.target.classList.contains('column')) {
+        event.target.classList.remove('over');
+    }
+});
+
+document.addEventListener('drop', (event) => {
+    event.preventDefault();
+    if (event.target.classList.contains('column')) {
+        const columnId = event.target.id;
+        const taskHtml = event.dataTransfer.getData('text/plain');
+        const originColumnId = event.dataTransfer.getData('text/plain').split('<')[0].trim();
+
+        if (columnId !== originColumnId) {
+            const newTask = document.createElement('div');
+            newTask.classList.add('box');
+            newTask.draggable = true;
+            newTask.innerHTML = taskHtml;
+            event.target.appendChild(newTask);
+
+            // Remove task from original column
+            const originColumn = document.getElementById(originColumnId);
+            const taskToRemove = originColumn.querySelector('.dragging');
+            if (taskToRemove) {
+                originColumn.removeChild(taskToRemove);
             }
         }
-    });
+        event.target.classList.remove('over');
+    }
 });
