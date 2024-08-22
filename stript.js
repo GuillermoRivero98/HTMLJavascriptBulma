@@ -170,3 +170,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+function createTask(taskData) {
+    const state = document.querySelector('#taskState').value;
+    const column = document.querySelector(`.column:has(h2:contains(${state}))`);
+
+    const taskHTML = `
+        <div class="box" draggable="true">
+            <h3 class="title is-5">${taskData.title}</h3>
+            <p>${taskData.description}</p>
+            <p><strong>Asignado a:</strong> ${taskData.assignedTo}</p>
+            <p><strong>Prioridad:</strong> ${taskData.priority}</p>
+            <p><strong>Fecha límite:</strong> ${taskData.dueDate}</p>
+        </div>
+    `;
+
+    column.innerHTML += taskHTML;
+
+    initDragAndDrop();
+}
+document.querySelector('.dark-mode-button').addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+});
