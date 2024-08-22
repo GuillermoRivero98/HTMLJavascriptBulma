@@ -10,39 +10,36 @@ body {
 /* Estilos para las columnas */
 .columns {
     display: flex;
-    flex-wrap: nowrap;
     overflow-x: auto;
     height: 100vh;
     padding: 10px;
     box-sizing: border-box;
 }
 
-/* Columnas individuales */
 .column {
-    flex: 0 0 300px;
+    min-width: 300px;
     margin-right: 10px;
     background-color: white;
     border-radius: 8px;
     padding: 10px;
     box-shadow: 0 4px 8px black;
+    overflow-y: auto;
 }
 
-/* Estilos para las tareas (cards) */
 .box {
     margin-bottom: 15px;
     padding: 15px;
     background-color: white;
-    border: 1px solid black;
+    border: 1px solid white;
     border-radius: 6px;
-    box-shadow: 0 2px 5px black;
+    box-shadow: black;
 }
 
-/* Botón de nueva tarea */
 .new-task-button {
-    position: absolute;
+    position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: blue;
+    background-color: blueviolet;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -51,7 +48,6 @@ body {
     cursor: pointer;
 }
 
-/* Modal básico */
 .modal {
     display: none;
     position: fixed;
@@ -79,7 +75,7 @@ body.dark-mode {
 }
 
 body.dark-mode .box {
-    background-color: gray;
+    background-color: black;
 }
 
 body.dark-mode .modal-content {
