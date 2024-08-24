@@ -63,3 +63,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+newTaskButton.addEventListener("click", () => {
+    modal.classList.add("is-active");
+});
+
