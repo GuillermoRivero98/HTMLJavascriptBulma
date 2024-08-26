@@ -27,9 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
             taskTitle.value = "";
             taskDescription.value = "";
             taskAssigned.value = "";
-            taskPriority.value = "Low"; // Asignar un valor predeterminado
+            taskPriority.value = "Low"; 
             taskDueDate.value = "";
-            taskState.value = "Backlog"; // Asignar un valor predeterminado
+            taskState.value = "Backlog"; 
             editingTask = null;
         }
         modal.classList.add("is-active");
@@ -48,17 +48,15 @@ document.addEventListener("DOMContentLoaded", () => {
     darkModeToggle.addEventListener("click", () => {
         document.body.classList.toggle("dark-mode");
     });
-
     taskForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        // Verificar que todos los campos requeridos tienen valor
         if (!taskTitle.value || !taskDueDate.value || !taskState.value) {
             alert("Please fill out all required fields.");
             return;
         }
 
-        const state = taskState.value.toLowerCase();
+        const state = taskState.value.toLowerCase().replace(" ", "-"); 
         const column = document.querySelector(`#${state}`);
 
         if (!column) {
@@ -71,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
         newTask.draggable = true;
         newTask.innerHTML = `
             <h3 class="title is-5">${taskTitle.value}</h3>
-            <p>${taskDescription.value}</p>
+            <p>${taskDescription.value || "Sin descripción"}</p>
             <p><strong>Asignado a:</strong> ${taskAssigned.value}</p>
             <p><strong>Prioridad:</strong> ${taskPriority.value}</p>
             <p><strong>Fecha límite:</strong> ${taskDueDate.value}</p>
@@ -83,12 +81,13 @@ document.addEventListener("DOMContentLoaded", () => {
             editingTask.replaceWith(newTask);
             editingTask = null;
         } else {
-            column.appendChild(newTask);
+            column.appendChild(newTask); 
         }
 
         modal.classList.remove("is-active");
-        taskForm.reset(); // Limpiar el formulario después de agregar/editar tarea
+        taskForm.reset(); 
     });
+
 
     function addDragAndDropListeners(task) {
         task.addEventListener("dragstart", () => {
