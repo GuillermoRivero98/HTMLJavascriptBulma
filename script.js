@@ -63,17 +63,48 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error(`Column with ID ${state} not found.`);
             return;
         }
+        
+        function isDateValid(date){
+            const fechaActual = new Date();
+            const [añoA, mesA, diaA] = [parseInt(fechaActual.getFullYear()),parseInt(fechaActual.getMonth())+1,parseInt(fechaActual.getDate())];
+            const separado = date.split("-");
+            const [añoD, mesD, diaD] = [parseInt(separado[0]),parseInt(separado[1]),parseInt(separado[2])];
+            if(añoD === añoA || añoD > añoA){
+                if(mesD === mesA || mesD > mesA){
+                    if (diaD === diaA || diaD > diaA){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                } else{
+                    return false;
+                }
+            }else{
+                return false;
+            }
+        }
 
         const newTask = document.createElement("div");
         newTask.className = "box";
         newTask.draggable = true;
-        newTask.innerHTML = `
-            <h3 class="title is-5">${taskTitle.value}</h3>
-            <p>${taskDescription.value || "Sin descripción"}</p>
-            <p><strong>Asignado a:</strong> ${taskAssigned.value}</p>
-            <p><strong>Prioridad:</strong> ${taskPriority.value}</p>
-            <p><strong>Fecha límite:</strong> ${taskDueDate.value}</p>
-        `;
+
+        if(isDateValid(taskDueDate.value)){
+            newTask.innerHTML = `
+                <h3 class="title is-5">${taskTitle.value}</h3>
+                <p>${taskDescription.value || "Sin descripción"}</p>
+                <p><strong>Asignado a:</strong> ${taskAssigned.value}</p>
+                <p><strong>Prioridad:</strong> ${taskPriority.value}</p>
+                <p><strong>Fecha límite:</strong> ${taskDueDate.value}</p>
+            `;
+        } else {
+            newTask.innerHTML = `
+                <h3 class="title is-5">${taskTitle.value}</h3>
+                <p>${taskDescription.value || "Sin descripción"}</p>
+                <p><strong>Asignado a:</strong> ${taskAssigned.value}</p>
+                <p><strong>Prioridad:</strong> ${taskPriority.value}</p>
+                <p><strong>Fecha límite:</strong> ${"Fallo"}</p>
+            `;
+        }
 
         addDragAndDropListeners(newTask);
 
@@ -87,7 +118,6 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.classList.remove("is-active");
         taskForm.reset();
     });
-
 
     function addDragAndDropListeners(task) {
         task.addEventListener("dragstart", () => {
