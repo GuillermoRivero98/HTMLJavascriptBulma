@@ -1,6 +1,6 @@
 body {
     font-family: 'Arial', sans-serif;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color black;
 }
 
 h1 {
@@ -39,7 +39,7 @@ h1 {
 }
 
 .modal-background {
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: black;
 }
 
 .modal-content {
@@ -75,6 +75,7 @@ body.dark-mode .modal-content {
         flex-wrap: nowrap;
         overflow-x: auto;
     }
+
     .column {
         flex: 0 0 auto;
     }
@@ -84,6 +85,7 @@ body.dark-mode .modal-content {
     .columns {
         flex-wrap: wrap;
     }
+
     .column {
         flex: 1 0 100%;
     }
@@ -95,18 +97,20 @@ body.dark-mode .modal-content {
         bottom: 10px;
         right: 10px;
     }
+
     .columns {
         flex-direction: column;
         overflow-y: auto;
     }
+
     .column {
-        max-height: 70vh; 
+        max-height: 70vh;
         overflow-y: auto;
     }
 }
 
 .column {
-    max-height: 80vh; 
+    max-height: 80vh;
     overflow-y: auto;
 }
 

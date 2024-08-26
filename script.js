@@ -27,9 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
             taskTitle.value = "";
             taskDescription.value = "";
             taskAssigned.value = "";
-            taskPriority.value = "Low"; 
+            taskPriority.value = "Low";
             taskDueDate.value = "";
-            taskState.value = "Backlog"; 
+            taskState.value = "Backlog";
             editingTask = null;
         }
         modal.classList.add("is-active");
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const state = taskState.value.toLowerCase().replace(" ", "-"); 
+        const state = taskState.value.toLowerCase().replace(" ", "-");
         const column = document.querySelector(`#${state}`);
 
         if (!column) {
@@ -81,11 +81,11 @@ document.addEventListener("DOMContentLoaded", () => {
             editingTask.replaceWith(newTask);
             editingTask = null;
         } else {
-            column.appendChild(newTask); 
+            column.appendChild(newTask);
         }
 
         modal.classList.remove("is-active");
-        taskForm.reset(); 
+        taskForm.reset();
     });
 
 
