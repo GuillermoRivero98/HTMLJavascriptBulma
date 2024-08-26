@@ -4,11 +4,40 @@ document.addEventListener("DOMContentLoaded", () => {
     const cancelTaskButton = document.querySelector("#cancelTask");
     const darkModeToggle = document.querySelector("#darkModeToggle");
     const taskForm = document.querySelector("#taskForm");
+    const taskTitle = document.querySelector("#taskTitle");
+    const taskDescription = document.querySelector("#taskDescription");
+    const taskAssigned = document.querySelector("#taskAssigned");
+    const taskPriority = document.querySelector("#taskPriority");
+    const taskDueDate = document.querySelector("#taskDueDate");
+    const taskState = document.querySelector("#taskState");
+    
+    let editingTask = null; // Track which task is being edited
 
     // Modal handling
-    newTaskButton.addEventListener("click", () => {
+    function openModal(task = null) {
+        if (task) {
+            // Load task data into form fields
+            taskTitle.value = task.querySelector("h3").textContent;
+            taskDescription.value = task.querySelector("p:nth-of-type(1)").textContent;
+            taskAssigned.value = task.querySelector("p:nth-of-type(2)").textContent.replace("Asignado a: ", "");
+            taskPriority.value = task.querySelector("p:nth-of-type(3)").textContent.replace("Prioridad: ", "");
+            taskDueDate.value = task.querySelector("p:nth-of-type(4)").textContent.replace("Fecha límite: ", "");
+            taskState.value = task.closest(".column").getAttribute("data-state");
+            editingTask = task;
+        } else {
+            // Clear form fields
+            taskTitle.value = "";
+            taskDescription.value = "";
+            taskAssigned.value = "";
+            taskPriority.value = "";
+            taskDueDate.value = "";
+            taskState.value = "";
+            editingTask = null;
+        }
         modal.classList.add("is-active");
-    });
+    }
+
+    newTaskButton.addEventListener("click", () => openModal());
 
     cancelTaskButton.addEventListener("click", () => {
         modal.classList.remove("is-active");
@@ -25,10 +54,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     taskForm.addEventListener("submit", (e) => {
         e.preventDefault();
+        const state = taskState.value;
+        const newTask = document.createElement("div");
+        newTask.className = "box";
+        newTask.draggable = true;
+        newTask.innerHTML = `
+            <h3 class="title is-5">${taskTitle.value}</h3>
+            <p>${taskDescription.value}</p>
+            <p><strong>Asignado a:</strong> ${taskAssigned.value}</p>
+            <p><strong>Prioridad:</strong> ${taskPriority.value}</p>
+            <p><strong>Fecha límite:</strong> ${taskDueDate.value}</p>
+        `;
+        
+        if (editingTask) {
+            // Replace existing task
+            editingTask.replaceWith(newTask);
+        } else {
+            // Add new task to column
+            document.querySelector(`#${state.toLowerCase()}`).appendChild(newTask);
+        }
+        
         modal.classList.remove("is-active");
     });
 
-    // Drag and drop 
+    // Drag and drop
     let draggedTask = null;
 
     document.querySelectorAll(".box").forEach(task => {
@@ -63,8 +112,3 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
-
-newTaskButton.addEventListener("click", () => {
-    modal.classList.add("is-active");
-});
-

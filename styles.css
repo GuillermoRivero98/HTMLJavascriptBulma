@@ -1,6 +1,7 @@
 /* Estilos generales */
 body {
     font-family: 'Arial', sans-serif;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 h1 {
@@ -40,7 +41,7 @@ h1 {
 }
 
 .modal-background {
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 .modal-content {
@@ -48,6 +49,7 @@ h1 {
     padding: 20px;
     border-radius: 5px;
     max-width: 500px;
+    margin: auto;
 }
 
 /* Dark mode styles */
@@ -63,10 +65,46 @@ body.dark-mode .box {
 
 body.dark-mode .modal-content {
     background-color: black;
+    color: white;
 }
 
-/* Column drop zones */
 .column.over {
     border: 2px dashed blue;
     background-color: white;
+}
+
+/* Responsive design */
+@media (min-width: 1440px) {
+    .columns {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+    .column {
+        flex: 0 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .columns {
+        flex-wrap: wrap;
+    }
+    .column {
+        flex: 1 0 100%;
+    }
+}
+
+@media (max-width: 425px) {
+    .new-task-button {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+    }
+    .columns {
+        flex-direction: column;
+        overflow-y: auto;
+    }
+    .column {
+        max-height: 70vh; 
+        overflow-y: auto;
+    }
 }
