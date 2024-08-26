@@ -56,6 +56,11 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+        if(!isDateValid(taskAssigned.value)){
+            alert("Fecha invalida. La fecha ingresada es de un dia anterior al actual");
+            return;
+        }
+
         const state = taskState.value.toLowerCase().replace(" ", "-");
         const column = document.querySelector(`#${state}`);
 
@@ -88,23 +93,13 @@ document.addEventListener("DOMContentLoaded", () => {
         newTask.className = "box";
         newTask.draggable = true;
 
-        if(isDateValid(taskDueDate.value)){
-            newTask.innerHTML = `
-                <h3 class="title is-5">${taskTitle.value}</h3>
-                <p>${taskDescription.value || "Sin descripción"}</p>
-                <p><strong>Asignado a:</strong> ${taskAssigned.value}</p>
-                <p><strong>Prioridad:</strong> ${taskPriority.value}</p>
-                <p><strong>Fecha límite:</strong> ${taskDueDate.value}</p>
-            `;
-        } else {
-            newTask.innerHTML = `
-                <h3 class="title is-5">${taskTitle.value}</h3>
-                <p>${taskDescription.value || "Sin descripción"}</p>
-                <p><strong>Asignado a:</strong> ${taskAssigned.value}</p>
-                <p><strong>Prioridad:</strong> ${taskPriority.value}</p>
-                <p><strong>Fecha límite:</strong> ${"Fallo"}</p>
-            `;
-        }
+        newTask.innerHTML = `
+            <h3 class="title is-5">${taskTitle.value}</h3>
+            <p>${taskDescription.value || "Sin descripción"}</p>
+            <p><strong>Asignado a:</strong> ${taskAssigned.value}</p>
+            <p><strong>Prioridad:</strong> ${taskPriority.value}</p>
+            <p><strong>Fecha límite:</strong> ${taskDueDate.value}</p>
+        `;
 
         addDragAndDropListeners(newTask);
 
