@@ -10,14 +10,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const taskPriority = document.querySelector("#taskPriority");
     const taskDueDate = document.querySelector("#taskDueDate");
     const taskState = document.querySelector("#taskState");
-    
-    let editingTask = null; // Track which task is being edited
-    let draggedTask = null; // Track the currently dragged task
 
-    // Modal handling
+    let editingTask = null;
+    let draggedTask = null;
+
     function openModal(task = null) {
         if (task) {
-            // Load task data into form fields
             taskTitle.value = task.querySelector("h3").textContent;
             taskDescription.value = task.querySelector("p:nth-of-type(1)").textContent;
             taskAssigned.value = task.querySelector("p:nth-of-type(2)").textContent.replace("Asignado a: ", "");
@@ -26,13 +24,12 @@ document.addEventListener("DOMContentLoaded", () => {
             taskState.value = task.closest(".column").getAttribute("data-state");
             editingTask = task;
         } else {
-            // Clear form fields
             taskTitle.value = "";
             taskDescription.value = "";
             taskAssigned.value = "";
-            taskPriority.value = "";
+            taskPriority.value = "Low"; // Asignar un valor predeterminado
             taskDueDate.value = "";
-            taskState.value = "";
+            taskState.value = "Backlog"; // Asignar un valor predeterminado
             editingTask = null;
         }
         modal.classList.add("is-active");
@@ -48,14 +45,27 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.classList.remove("is-active");
     });
 
-    // Dark mode toggle
     darkModeToggle.addEventListener("click", () => {
         document.body.classList.toggle("dark-mode");
     });
 
     taskForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        const state = taskState.value;
+
+        // Verificar que todos los campos requeridos tienen valor
+        if (!taskTitle.value || !taskDueDate.value || !taskState.value) {
+            alert("Please fill out all required fields.");
+            return;
+        }
+
+        const state = taskState.value.toLowerCase();
+        const column = document.querySelector(`#${state}`);
+
+        if (!column) {
+            console.error(`Column with ID ${state} not found.`);
+            return;
+        }
+
         const newTask = document.createElement("div");
         newTask.className = "box";
         newTask.draggable = true;
@@ -66,23 +76,22 @@ document.addEventListener("DOMContentLoaded", () => {
             <p><strong>Prioridad:</strong> ${taskPriority.value}</p>
             <p><strong>Fecha límite:</strong> ${taskDueDate.value}</p>
         `;
-        
-        // Add event listeners to the new task
+
         addDragAndDropListeners(newTask);
 
         if (editingTask) {
-            // Replace existing task
             editingTask.replaceWith(newTask);
+            editingTask = null;
         } else {
-            // Add new task to column
-            document.querySelector(`#${state.toLowerCase()}`).appendChild(newTask);
+            column.appendChild(newTask);
         }
-        
+
         modal.classList.remove("is-active");
+        taskForm.reset(); // Limpiar el formulario después de agregar/editar tarea
     });
 
     function addDragAndDropListeners(task) {
-        task.addEventListener("dragstart", (e) => {
+        task.addEventListener("dragstart", () => {
             draggedTask = task;
             setTimeout(() => {
                 task.classList.add("dragging");
@@ -91,8 +100,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         task.addEventListener("dragend", () => {
             setTimeout(() => {
-                draggedTask.classList.remove("dragging");
-                draggedTask = null;
+                if (draggedTask) {
+                    draggedTask.classList.remove("dragging");
+                    draggedTask = null;
+                }
             }, 0);
         });
     }
@@ -110,12 +121,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
             column.addEventListener("drop", () => {
                 column.classList.remove("over");
-                column.appendChild(draggedTask);
+                if (draggedTask) {
+                    column.appendChild(draggedTask);
+                    draggedTask.classList.remove("dragging");
+                    draggedTask = null;
+                }
             });
         });
     }
 
-    // Initialize drag and drop listeners for existing tasks and columns
     document.querySelectorAll(".box").forEach(task => addDragAndDropListeners(task));
     setupColumns();
 });

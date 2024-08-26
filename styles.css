@@ -108,3 +108,12 @@ body.dark-mode .modal-content {
         overflow-y: auto;
     }
 }
+
+.column {
+    max-height: 80vh; /* Ajusta según el diseño */
+    overflow-y: auto;
+}
+
+.box {
+    margin-bottom: 10px;
+}
