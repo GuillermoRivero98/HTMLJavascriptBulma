@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const taskState = document.querySelector("#taskState");
     
     let editingTask = null; // Track which task is being edited
+    let draggedTask = null; // Track the currently dragged task
 
     // Modal handling
     function openModal(task = null) {
@@ -66,6 +67,9 @@ document.addEventListener("DOMContentLoaded", () => {
             <p><strong>Fecha límite:</strong> ${taskDueDate.value}</p>
         `;
         
+        // Add event listeners to the new task
+        addDragAndDropListeners(newTask);
+
         if (editingTask) {
             // Replace existing task
             editingTask.replaceWith(newTask);
@@ -77,10 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.classList.remove("is-active");
     });
 
-    // Drag and drop
-    let draggedTask = null;
-
-    document.querySelectorAll(".box").forEach(task => {
+    function addDragAndDropListeners(task) {
         task.addEventListener("dragstart", (e) => {
             draggedTask = task;
             setTimeout(() => {
@@ -94,21 +95,27 @@ document.addEventListener("DOMContentLoaded", () => {
                 draggedTask = null;
             }, 0);
         });
-    });
+    }
 
-    document.querySelectorAll(".column").forEach(column => {
-        column.addEventListener("dragover", (e) => {
-            e.preventDefault();
-            column.classList.add("over");
-        });
+    function setupColumns() {
+        document.querySelectorAll(".column").forEach(column => {
+            column.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                column.classList.add("over");
+            });
 
-        column.addEventListener("dragleave", () => {
-            column.classList.remove("over");
-        });
+            column.addEventListener("dragleave", () => {
+                column.classList.remove("over");
+            });
 
-        column.addEventListener("drop", () => {
-            column.classList.remove("over");
-            column.appendChild(draggedTask);
+            column.addEventListener("drop", () => {
+                column.classList.remove("over");
+                column.appendChild(draggedTask);
+            });
         });
-    });
+    }
+
+    // Initialize drag and drop listeners for existing tasks and columns
+    document.querySelectorAll(".box").forEach(task => addDragAndDropListeners(task));
+    setupColumns();
 });
