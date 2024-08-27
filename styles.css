@@ -7,6 +7,10 @@ h1 {
     margin-bottom: 20px;
 }
 
+h2 {
+    margin-top: 20px;
+}
+
 .box {
     margin-bottom: 15px;
     padding: 15px;
@@ -56,8 +60,26 @@ body.dark-mode {
 }
 
 body.dark-mode .box {
-    background-color: darkblue;
+    background-color: gray;
     color: white;
+    
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+    color: beige;
+}
+
+body.dark-mode #darkModeToggle {
+    background-color: aquamarine;
+}
+
+body #darkModeToggle{
+    background-color: antiquewhite;
 }
 
 body.dark-mode .modal-content {
@@ -65,8 +87,22 @@ body.dark-mode .modal-content {
     color: white;
 }
 
+body {
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Arial', sans-serif;
+    transition: background-color 0.3s;
+}
+
+body.dark-mode {
+    background-image: url('background\ darkmode.jpg');
+}
+
+
 .column.over {
-    border: 2px dashed blue;
+    border: 2px dashed gray;
     background-color: white;
 }
 
