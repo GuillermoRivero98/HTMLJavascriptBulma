@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        if(!isDateValid(taskAssigned.value)){
+        if(!isDateValid(taskDueDate.value)){
             alert("Fecha invalida. La fecha ingresada es de un dia anterior al actual");
             return;
         }
