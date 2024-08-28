@@ -114,14 +114,6 @@ body #darkModeToggle {
 
 /* Responsividad */
 
-/* Pantallas grandes */
-@media (min-width: 1441px) {
-    .column.is-one-fifth {
-        flex-basis: calc(20% - 15px); /* Asegura que 5 columnas quepan en una fila en pantallas grandes */
-    }
-}
-
-/* Pantallas medianas (entre 1440px y 769px) */
 @media (min-width: 1440px) {
     .columns {
         flex-wrap: nowrap; /* Mantén las columnas en una sola fila con scroll horizontal */
