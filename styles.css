@@ -13,34 +13,14 @@ h2 {
 =======
 >>>>>>> Stashed changes
 }
-
-body.dark-mode {
-    background-color: black;
-    color: white;
-    background-image: url('background darkmode.jpg');
-}
-
-/* Ajuste adicional para asegurar que el contenedor ocupe todo el ancho */
-.container {
 html, body {
     height: 100%;
     margin: 0;
-    padding: 0;
-    width: 100%;
-    flex: 1;
-    box-sizing: border-box;
 }
 h1 {
     margin-bottom: 20px;
 }
 
-/* Columnas */
-.columns {
-    display: flex;
-    flex-wrap: nowrap; /* Evita que las columnas se envuelvan en la siguiente fila */
-    overflow-x: auto;  /* Habilita el scroll horizontal si las columnas no caben en la pantalla */
-    padding-bottom: 15px; /* Asegura que haya espacio debajo de las columnas para la barra de desplazamiento */
-    box-sizing: border-box;
 h2 {
     margin-top: 20px;
 }
@@ -178,8 +158,6 @@ body.dark-mode {
     border: 2px dashed gray;
     background-color: white;
 }
-
-/* Responsividad */
 
 @media (min-width: 1440px) {
     .columns {
