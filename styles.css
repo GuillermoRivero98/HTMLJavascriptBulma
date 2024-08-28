@@ -1,7 +1,7 @@
 body {
     font-family: 'Arial', sans-serif;
     transition: background-color black;
-<<<<<<< Updated upstream
+
 }
 
 h1 {
@@ -10,8 +10,7 @@ h1 {
 
 h2 {
     margin-top: 20px;
-=======
->>>>>>> Stashed changes
+
 }
 html, body {
     height: 100%;
@@ -25,7 +24,6 @@ h2 {
     margin-top: 20px;
 }
 
-<<<<<<< Updated upstream
 .column {
     min-width: 300px; /* Asegura un ancho mínimo para cada columna */
     margin-right: 15px; /* Añade un margen entre las columnas */
@@ -58,8 +56,6 @@ h2 {
     background-color: green;
 }
 
-=======
->>>>>>> Stashed changes
 .box {
     margin-bottom: 15px;
     padding: 15px;
@@ -143,10 +139,6 @@ body {
     background-repeat: no-repeat;
     font-family: 'Arial', sans-serif;
     transition: background-color 0.3s;
-<<<<<<< Updated upstream
-=======
-    
->>>>>>> Stashed changes
 }
 
 body.dark-mode {
@@ -161,7 +153,7 @@ body.dark-mode {
 
 @media (min-width: 1440px) {
     .columns {
-<<<<<<< Updated upstream
+
         flex-wrap: wrap;
     }
 
@@ -187,19 +179,23 @@ body.dark-mode {
         overflow-y: auto;
     }
 }
-
-=======
+@media (min-width: 1440px){
+    
+    .columns{
         flex-wrap: nowrap;
         overflow-x: auto;
     }
-    
+
+        
     #taskColumns{
         flex-wrap: nowrap;
     }
     .column {
         flex: 0 0 auto;
     }
-}
+}   
+
+
 
 @media (max-width: 768px) {
     .columns {
@@ -228,8 +224,6 @@ body.dark-mode {
         overflow-y: auto;
     }
 }
-
->>>>>>> Stashed changes
 .column {
     max-height: 80vh;
     overflow-y: auto;
