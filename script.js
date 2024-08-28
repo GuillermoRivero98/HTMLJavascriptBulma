@@ -180,3 +180,4 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".box").forEach(task => addDragAndDropListeners(task));
     setupColumns();
 });
+});

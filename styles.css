@@ -1,6 +1,7 @@
 body {
     font-family: 'Arial', sans-serif;
     transition: background-color black;
+<<<<<<< Updated upstream
 }
 
 h1 {
@@ -9,6 +10,8 @@ h1 {
 
 h2 {
     margin-top: 20px;
+=======
+>>>>>>> Stashed changes
 }
 
 body.dark-mode {
@@ -19,11 +22,16 @@ body.dark-mode {
 
 /* Ajuste adicional para asegurar que el contenedor ocupe todo el ancho */
 .container {
+html, body {
+    height: 100%;
     margin: 0;
     padding: 0;
     width: 100%;
     flex: 1;
     box-sizing: border-box;
+}
+h1 {
+    margin-bottom: 20px;
 }
 
 /* Columnas */
@@ -33,8 +41,11 @@ body.dark-mode {
     overflow-x: auto;  /* Habilita el scroll horizontal si las columnas no caben en la pantalla */
     padding-bottom: 15px; /* Asegura que haya espacio debajo de las columnas para la barra de desplazamiento */
     box-sizing: border-box;
+h2 {
+    margin-top: 20px;
 }
 
+<<<<<<< Updated upstream
 .column {
     min-width: 300px; /* Asegura un ancho mínimo para cada columna */
     margin-right: 15px; /* Añade un margen entre las columnas */
@@ -67,6 +78,8 @@ body.dark-mode {
     background-color: green;
 }
 
+=======
+>>>>>>> Stashed changes
 .box {
     margin-bottom: 15px;
     padding: 15px;
@@ -150,6 +163,10 @@ body {
     background-repeat: no-repeat;
     font-family: 'Arial', sans-serif;
     transition: background-color 0.3s;
+<<<<<<< Updated upstream
+=======
+    
+>>>>>>> Stashed changes
 }
 
 body.dark-mode {
@@ -166,6 +183,7 @@ body.dark-mode {
 
 @media (min-width: 1440px) {
     .columns {
+<<<<<<< Updated upstream
         flex-wrap: wrap;
     }
 
@@ -192,6 +210,48 @@ body.dark-mode {
     }
 }
 
+=======
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+    
+    #taskColumns{
+        flex-wrap: nowrap;
+    }
+    .column {
+        flex: 0 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .columns {
+        flex-wrap: wrap;
+    }
+
+    .column {
+        flex: 1 0 100%;
+    }
+}
+
+@media (max-width: 425px) {
+    .new-task-button {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .columns {
+        flex-direction: column;
+        overflow-y: auto;
+    }
+
+    .column {   
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+}
+
+>>>>>>> Stashed changes
 .column {
     max-height: 80vh;
     overflow-y: auto;
