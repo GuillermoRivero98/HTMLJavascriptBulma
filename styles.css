@@ -11,6 +11,27 @@ h2 {
     margin-top: 20px;
 }
 
+#highPriority {
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: red;
+}
+
+#mediumPriority{
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: yellow;
+}
+
+#lowPriority {
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: green;
+}
+
 .box {
     margin-bottom: 15px;
     padding: 15px;
