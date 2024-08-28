@@ -24,6 +24,6 @@ Para 1440px, se pide que haya un scrolling horizontal en la pantalla principal, 
 Para 768px, se pide que se haga un wrap, de manera que no sea necesario hacer scrolling
 Para 425px, se pide que haya un scrolling vertical, de manera de poder ver todas las columnas. El botón de agregar tarea en 425px pasa de un posicionamiento estático a un posicionamiento absoluto.
 Para todas las resoluciones, una vez haya establecido una altura apropiada para las columnas, se pide que haya un scrolling vertical dentro de cada uno de ellas en caso de que sea necesario (si hay demasiadas tareas a mostrar para esa columna).
-Puntos Extras
+Puntos Extras   
 La web cuenta con la posibilidad de cambiar entre modo Dark y Light
 Se puede cambiar el estado de las tareas arrastrandolas entre las columnas (drag and drop)

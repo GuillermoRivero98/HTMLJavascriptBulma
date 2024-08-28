@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
     darkModeToggle.addEventListener("click", () => {
         document.body.classList.toggle("dark-mode");
     });
+
     taskForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
@@ -115,25 +116,83 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     function addDragAndDropListeners(task) {
-        task.addEventListener("dragstart", () => {
+        const handleDragStart = (e) => {
             draggedTask = task;
-            setTimeout(() => {
-                task.classList.add("dragging");
-            }, 0);
-        });
+            task.classList.add("dragging");
+        };
 
-        task.addEventListener("dragend", () => {
-            setTimeout(() => {
-                if (draggedTask) {
+        const handleDragEnd = (e) => {
+            task.classList.remove("dragging");
+            draggedTask = null;
+        };
+
+        const handleDragOver = (e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = "move";
+        };
+
+        const handleDrop = (e) => {
+            e.preventDefault();
+            if (draggedTask) {
+                const column = e.target.closest(".column");
+                if (column) {
+                    column.appendChild(draggedTask);
                     draggedTask.classList.remove("dragging");
                     draggedTask = null;
                 }
-            }, 0);
+            }
+        };
+
+        task.addEventListener("dragstart", handleDragStart);
+        task.addEventListener("dragend", handleDragEnd);
+
+        const columns = document.querySelectorAll(".column");
+        columns.forEach((column) => {
+            column.addEventListener("dragover", handleDragOver);
+            column.addEventListener("drop", handleDrop);
+        });
+
+        // Event listeners for touch devices
+        task.addEventListener("touchstart", (e) => {
+            e.preventDefault();
+            draggedTask = task;
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+            offsetX = draggedTask.offsetLeft;
+            offsetY = draggedTask.offsetTop;
+        });
+
+        task.addEventListener("touchmove", (e) => {
+            e.preventDefault();
+            if (draggedTask) {
+                const touch = e.touches[0];
+                const x = touch.clientX - startX;
+                const y = touch.clientY - startY;
+                draggedTask.style.position = "absolute";
+                draggedTask.style.left = `${offsetX + x}px`;
+                draggedTask.style.top = `${offsetY + y}px`;
+            }
+        });
+
+        task.addEventListener("touchend", (e) => {
+            e.preventDefault();
+            if (draggedTask) {
+                draggedTask.style.position = "relative";
+                draggedTask.style.left = "auto";
+                draggedTask.style.top = "auto";
+
+                const column = document.elementFromPoint(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+                if (column && column.classList.contains("column")) {
+                    column.appendChild(draggedTask);
+                }
+                draggedTask = null;
+            }
         });
     }
 
     function setupColumns() {
-        document.querySelectorAll(".column").forEach(column => {
+        const columns = document.querySelectorAll(".column");
+        columns.forEach((column) => {
             column.addEventListener("dragover", (e) => {
                 e.preventDefault();
                 column.classList.add("over");
