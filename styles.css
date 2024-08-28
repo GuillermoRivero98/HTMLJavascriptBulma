@@ -1,20 +1,14 @@
-/* Reseteo básico */
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    box-sizing: border-box;
-}
-
 body {
     font-family: 'Arial', sans-serif;
-    transition: background-color 0.3s;
-    background-image: url('background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    transition: background-color black;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin-top: 20px;
 }
 
 body.dark-mode {
@@ -52,7 +46,27 @@ body.dark-mode {
     margin-right: 0; /* Elimina el margen derecho de la última columna */
 }
 
-/* Cajas de tareas */
+#highPriority {
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: red;
+}
+
+#mediumPriority{
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: yellow;
+}
+
+#lowPriority {
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: green;
+}
+
 .box {
     margin-bottom: 15px;
     padding: 15px;
@@ -66,7 +80,20 @@ body.dark-mode {
     opacity: 0.5;
 }
 
-/* Modales */
+.columns {
+    overflow-x: auto;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.column {
+    min-width: 300px;
+}
+
+.column h2 {
+    margin-bottom: 10px;
+}
+
 .modal.is-active {
     display: flex;
 }
@@ -83,18 +110,23 @@ body.dark-mode {
     margin: auto;
 }
 
-body.dark-mode .modal-content {
+body.dark-mode {
     background-color: black;
     color: white;
 }
 
-/* Modo oscuro */
 body.dark-mode .box {
     background-color: gray;
     color: white;
+    
 }
 
-body.dark-mode h1, body.dark-mode h2 {
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
     color: beige;
 }
 
@@ -102,11 +134,29 @@ body.dark-mode #darkModeToggle {
     background-color: aquamarine;
 }
 
-body #darkModeToggle {
+body #darkModeToggle{
     background-color: antiquewhite;
 }
 
-/* Indicador de columna activa */
+body.dark-mode .modal-content {
+    background-color: black;
+    color: white;
+}
+
+body {
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Arial', sans-serif;
+    transition: background-color 0.3s;
+}
+
+body.dark-mode {
+    background-image: url('background\ darkmode.jpg');
+}
+
+
 .column.over {
     border: 2px dashed gray;
     background-color: white;
@@ -116,25 +166,37 @@ body #darkModeToggle {
 
 @media (min-width: 1440px) {
     .columns {
-        flex-wrap: nowrap; /* Mantén las columnas en una sola fila con scroll horizontal */
+        flex-wrap: wrap;
     }
 
-    .column.is-one-fifth {
-        flex-basis: 19%; /* Ajusta el tamaño para 5 columnas en una fila */
-    }
-
-    #taskColumns {
-        flex-wrap: nowrap; /* Mantén las columnas en una sola fila con scroll horizontal */
+    .column {
+        flex: 1 0 100%;
     }
 }
 
-/* Pantallas pequeñas (menos de 769px) */
-@media (max-width: 768px) {
-    .columns {
-        flex-direction: column; /* Coloca las columnas en una única columna */
+@media (max-width: 425px) {
+    .new-task-button {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
     }
 
-    .column.is-one-fifth {
-        flex-basis: calc(100% - 20px); /* Una columna por fila en pantallas pequeñas */
+    .columns {
+        flex-direction: column;
+        overflow-y: auto;
     }
+
+    .column {
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+}
+
+.column {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.box {
+    margin-bottom: 10px;
 }
