@@ -122,7 +122,7 @@ body #darkModeToggle {
 }
 
 /* Pantallas medianas (entre 1440px y 769px) */
-@media (max-width: 1440px) and (min-width: 769px) {
+@media (min-width: 1440px) {
     .columns {
         flex-wrap: nowrap; /* Mantén las columnas en una sola fila con scroll horizontal */
     }
