@@ -1,58 +1,16 @@
-/* Reseteo básico */
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    box-sizing: border-box;
-}
-
 body {
     font-family: 'Arial', sans-serif;
-    transition: background-color 0.3s;
-    background-image: url('background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    transition: background-color black;
 }
 
-body.dark-mode {
-    background-color: black;
-    color: white;
-    background-image: url('background darkmode.jpg');
+h1 {
+    margin-bottom: 20px;
 }
 
-/* Ajuste adicional para asegurar que el contenedor ocupe todo el ancho */
-.container {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    flex: 1;
-    box-sizing: border-box;
+h2 {
+    margin-top: 20px;
 }
 
-/* Columnas */
-.columns {
-    display: flex;
-    flex-wrap: nowrap; /* Evita que las columnas se envuelvan en la siguiente fila */
-    overflow-x: auto;  /* Habilita el scroll horizontal si las columnas no caben en la pantalla */
-    padding-bottom: 15px; /* Asegura que haya espacio debajo de las columnas para la barra de desplazamiento */
-    box-sizing: border-box;
-}
-
-.column {
-    min-width: 300px; /* Asegura un ancho mínimo para cada columna */
-    margin-right: 15px; /* Añade un margen entre las columnas */
-    flex-grow: 0; /* Evita que las columnas crezcan más allá de su tamaño natural */
-    flex-basis: calc(20% - 15px); /* Ajusta el tamaño de cada columna */
-}
-
-.column:last-child {
-    margin-right: 0; /* Elimina el margen derecho de la última columna */
-}
-
-/* Cajas de tareas */
 .box {
     margin-bottom: 15px;
     padding: 15px;
@@ -66,7 +24,20 @@ body.dark-mode {
     opacity: 0.5;
 }
 
-/* Modales */
+.columns {
+    overflow-x: auto;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.column {
+    min-width: 300px;
+}
+
+.column h2 {
+    margin-bottom: 10px;
+}
+
 .modal.is-active {
     display: flex;
 }
@@ -83,18 +54,23 @@ body.dark-mode {
     margin: auto;
 }
 
-body.dark-mode .modal-content {
+body.dark-mode {
     background-color: black;
     color: white;
 }
 
-/* Modo oscuro */
 body.dark-mode .box {
     background-color: gray;
     color: white;
+    
 }
 
-body.dark-mode h1, body.dark-mode h2 {
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
     color: beige;
 }
 
@@ -102,47 +78,78 @@ body.dark-mode #darkModeToggle {
     background-color: aquamarine;
 }
 
-body #darkModeToggle {
+body #darkModeToggle{
     background-color: antiquewhite;
 }
 
-/* Indicador de columna activa */
+body.dark-mode .modal-content {
+    background-color: black;
+    color: white;
+}
+
+body {
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Arial', sans-serif;
+    transition: background-color 0.3s;
+}
+
+body.dark-mode {
+    background-image: url('background\ darkmode.jpg');
+}
+
+
 .column.over {
     border: 2px dashed gray;
     background-color: white;
 }
 
-/* Responsividad */
-
-/* Pantallas grandes */
-@media (min-width: 1441px) {
-    .column.is-one-fifth {
-        flex-basis: calc(20% - 15px); /* Asegura que 5 columnas quepan en una fila en pantallas grandes */
-    }
-}
-
-/* Pantallas medianas (entre 1440px y 769px) */
-@media (max-width: 1440px) and (min-width: 769px) {
+@media (min-width: 1440px) {
     .columns {
-        flex-wrap: nowrap; /* Mantén las columnas en una sola fila con scroll horizontal */
+        flex-wrap: nowrap;
+        overflow-x: auto;
     }
 
-    .column.is-one-fifth {
-        flex-basis: 19%; /* Ajusta el tamaño para 5 columnas en una fila */
-    }
-
-    #taskColumns {
-        flex-wrap: nowrap; /* Mantén las columnas en una sola fila con scroll horizontal */
+    .column {
+        flex: 0 0 auto;
     }
 }
 
-/* Pantallas pequeñas (menos de 769px) */
 @media (max-width: 768px) {
     .columns {
-        flex-direction: column; /* Coloca las columnas en una única columna */
+        flex-wrap: wrap;
     }
 
-    .column.is-one-fifth {
-        flex-basis: calc(100% - 20px); /* Una columna por fila en pantallas pequeñas */
+    .column {
+        flex: 1 0 100%;
     }
+}
+
+@media (max-width: 425px) {
+    .new-task-button {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .columns {
+        flex-direction: column;
+        overflow-y: auto;
+    }
+
+    .column {
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+}
+
+.column {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.box {
+    margin-bottom: 10px;
 }
