@@ -11,6 +11,62 @@ h2 {
     margin-top: 20px;
 }
 
+body.dark-mode {
+    background-color: black;
+    color: white;
+    background-image: url('background darkmode.jpg');
+}
+
+/* Ajuste adicional para asegurar que el contenedor ocupe todo el ancho */
+.container {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    flex: 1;
+    box-sizing: border-box;
+}
+
+/* Columnas */
+.columns {
+    display: flex;
+    flex-wrap: nowrap; /* Evita que las columnas se envuelvan en la siguiente fila */
+    overflow-x: auto;  /* Habilita el scroll horizontal si las columnas no caben en la pantalla */
+    padding-bottom: 15px; /* Asegura que haya espacio debajo de las columnas para la barra de desplazamiento */
+    box-sizing: border-box;
+}
+
+.column {
+    min-width: 300px; /* Asegura un ancho mínimo para cada columna */
+    margin-right: 15px; /* Añade un margen entre las columnas */
+    flex-grow: 0; /* Evita que las columnas crezcan más allá de su tamaño natural */
+    flex-basis: calc(20% - 15px); /* Ajusta el tamaño de cada columna */
+}
+
+.column:last-child {
+    margin-right: 0; /* Elimina el margen derecho de la última columna */
+}
+
+#highPriority {
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: red;
+}
+
+#mediumPriority{
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: yellow;
+}
+
+#lowPriority {
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: green;
+}
+
 .box {
     margin-bottom: 15px;
     padding: 15px;
