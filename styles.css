@@ -1,6 +1,7 @@
 body {
     font-family: 'Arial', sans-serif;
     transition: background-color black;
+
 }
 
 h1 {
@@ -9,6 +10,50 @@ h1 {
 
 h2 {
     margin-top: 20px;
+
+}
+html, body {
+    height: 100%;
+    margin: 0;
+}
+h1 {
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin-top: 20px;
+}
+
+.column {
+    min-width: 300px; /* Asegura un ancho mínimo para cada columna */
+    margin-right: 15px; /* Añade un margen entre las columnas */
+    flex-grow: 0; /* Evita que las columnas crezcan más allá de su tamaño natural */
+    flex-basis: calc(20% - 15px); /* Ajusta el tamaño de cada columna */
+}
+
+.column:last-child {
+    margin-right: 0; /* Elimina el margen derecho de la última columna */
+}
+
+#highPriority {
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: red;
+}
+
+#mediumPriority{
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: yellow;
+}
+
+#lowPriority {
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: green;
 }
 
 .box {
@@ -108,17 +153,7 @@ body.dark-mode {
 
 @media (min-width: 1440px) {
     .columns {
-        flex-wrap: nowrap;
-        overflow-x: auto;
-    }
 
-    .column {
-        flex: 0 0 auto;
-    }
-}
-
-@media (max-width: 768px) {
-    .columns {
         flex-wrap: wrap;
     }
 
@@ -144,7 +179,51 @@ body.dark-mode {
         overflow-y: auto;
     }
 }
+@media (min-width: 1440px){
+    
+    .columns{
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
 
+        
+    #taskColumns{
+        flex-wrap: nowrap;
+    }
+    .column {
+        flex: 0 0 auto;
+    }
+}   
+
+
+
+@media (max-width: 768px) {
+    .columns {
+        flex-wrap: wrap;
+    }
+
+    .column {
+        flex: 1 0 100%;
+    }
+}
+
+@media (max-width: 425px) {
+    .new-task-button {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .columns {
+        flex-direction: column;
+        overflow-y: auto;
+    }
+
+    .column {   
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+}
 .column {
     max-height: 80vh;
     overflow-y: auto;

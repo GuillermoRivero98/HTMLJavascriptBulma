@@ -93,13 +93,36 @@ document.addEventListener("DOMContentLoaded", () => {
         newTask.className = "box";
         newTask.draggable = true;
 
-        newTask.innerHTML = `
+        if(taskPriority.value ==="High"){
+            newTask.innerHTML = `
+            <h4 id="highPriority">  </h4>
             <h3 class="title is-5">${taskTitle.value}</h3>
             <p>${taskDescription.value || "Sin descripción"}</p>
             <p><strong>Asignado a:</strong> ${taskAssigned.value}</p>
             <p><strong>Prioridad:</strong> ${taskPriority.value}</p>
             <p><strong>Fecha límite:</strong> ${taskDueDate.value}</p>
         `;
+        }
+        if(taskPriority.value ==="Medium"){
+            newTask.innerHTML = `
+            <h4 id="mediumPriority">  </h4>
+            <h3 class="title is-5">${taskTitle.value}</h3>
+            <p>${taskDescription.value || "Sin descripción"}</p>
+            <p><strong>Asignado a:</strong> ${taskAssigned.value}</p>
+            <p><strong>Prioridad:</strong> ${taskPriority.value}</p>
+            <p><strong>Fecha límite:</strong> ${taskDueDate.value}</p>
+        `;
+        }
+        if(taskPriority.value ==="Low"){
+            newTask.innerHTML = `
+            <h4 id="lowPriority">  </h4>
+            <h3 class="title is-5">${taskTitle.value}</h3>
+            <p>${taskDescription.value || "Sin descripción"}</p>
+            <p><strong>Asignado a:</strong> ${taskAssigned.value}</p>
+            <p><strong>Prioridad:</strong> ${taskPriority.value}</p>
+            <p><strong>Fecha límite:</strong> ${taskDueDate.value}</p>
+        `;
+        }
 
         addDragAndDropListeners(newTask);
 
