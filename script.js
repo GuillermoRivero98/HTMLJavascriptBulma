@@ -48,6 +48,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     darkModeToggle.addEventListener("click", () => {
         document.body.classList.toggle("dark-mode");
+        const section = document.querySelector('.section');
+        if(section.classList.contains('dark-mode')){
+            section.classList.remove('dark-mode');
+        } else{
+            section.classList.add('dark-mode');
+        }
     });
 
     function isDateValid(date) {

@@ -145,6 +145,13 @@ body.dark-mode {
     background-color: darkblue;
 }
 
+section{
+    background-color: lightblue;
+}
+
+section.dark-mode {
+    background-color: darkblue;
+}
 
 .column.over {
     border: 2px dashed gray;
