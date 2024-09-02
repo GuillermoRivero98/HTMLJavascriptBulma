@@ -49,6 +49,27 @@ document.addEventListener("DOMContentLoaded", () => {
     darkModeToggle.addEventListener("click", () => {
         document.body.classList.toggle("dark-mode");
     });
+
+    function isDateValid(date) {
+        const fechaActual = new Date();
+        const [añoA, mesA, diaA] = [parseInt(fechaActual.getFullYear()), parseInt(fechaActual.getMonth()) + 1, parseInt(fechaActual.getDate())];
+        const separado = date.split("-");
+        const [añoD, mesD, diaD] = [parseInt(separado[0]), parseInt(separado[1]), parseInt(separado[2])];
+        if (añoD === añoA || añoD > añoA) {
+            if (mesD === mesA || mesD > mesA) {
+                if (diaD === diaA || diaD > diaA) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
     taskForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
@@ -70,60 +91,31 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        function isDateValid(date) {
-            const fechaActual = new Date();
-            const [añoA, mesA, diaA] = [parseInt(fechaActual.getFullYear()), parseInt(fechaActual.getMonth()) + 1, parseInt(fechaActual.getDate())];
-            const separado = date.split("-");
-            const [añoD, mesD, diaD] = [parseInt(separado[0]), parseInt(separado[1]), parseInt(separado[2])];
-            if (añoD === añoA || añoD > añoA) {
-                if (mesD === mesA || mesD > mesA) {
-                    if (diaD === diaA || diaD > diaA) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        }
-
         const newTask = document.createElement("div");
         newTask.className = "box";
         newTask.draggable = true;
 
+        let priorityClass = "";
         if (taskPriority.value === "High") {
-            newTask.innerHTML = `
-            <h4 id="highPriority">  </h4>
+            priorityClass = "highPriority";
+        } else if (taskPriority.value === "Medium") {
+            priorityClass = "mediumPriority";
+        } else if (taskPriority.value === "Low") {
+            priorityClass = "lowPriority";
+        }
+
+        newTask.innerHTML = `
+            <h4 class="priority-indicator ${priorityClass}"></h4>
             <h3 class="title is-5">${taskTitle.value}</h3>
             <p>${taskDescription.value || "Sin descripción"}</p>
             <p><strong>Asignado a:</strong> ${taskAssigned.value}</p>
             <p><strong>Prioridad:</strong> ${taskPriority.value}</p>
             <p><strong>Fecha límite:</strong> ${taskDueDate.value}</p>
+            <div class="task-actions">
+                <button class="button is-info edit-task-button">Edit</button>
+                <button class="button is-danger delete-task-button">Delete</button>
+            </div>
         `;
-        }
-        if (taskPriority.value === "Medium") {
-            newTask.innerHTML = `
-            <h4 id="mediumPriority">  </h4>
-            <h3 class="title is-5">${taskTitle.value}</h3>
-            <p>${taskDescription.value || "Sin descripción"}</p>
-            <p><strong>Asignado a:</strong> ${taskAssigned.value}</p>
-            <p><strong>Prioridad:</strong> ${taskPriority.value}</p>
-            <p><strong>Fecha límite:</strong> ${taskDueDate.value}</p>
-        `;
-        }
-        if (taskPriority.value === "Low") {
-            newTask.innerHTML = `
-            <h4 id="lowPriority">  </h4>
-            <h3 class="title is-5">${taskTitle.value}</h3>
-            <p>${taskDescription.value || "Sin descripción"}</p>
-            <p><strong>Asignado a:</strong> ${taskAssigned.value}</p>
-            <p><strong>Prioridad:</strong> ${taskPriority.value}</p>
-            <p><strong>Fecha límite:</strong> ${taskDueDate.value}</p>
-        `;
-        }
 
         addDragAndDropListeners(newTask);
 
@@ -154,6 +146,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }, 0);
         });
+
+        addTaskActionListeners(task); // Añadir listeners para editar y eliminar
     }
 
     function setupColumns() {
@@ -200,4 +194,33 @@ document.addEventListener("DOMContentLoaded", () => {
         const query = searchBar.value.toLowerCase();
         filterTasks(query);
     });
+
+    // Función para manejar el clic en el botón de eliminar
+    function handleDeleteTask(event) {
+        const task = event.target.closest(".box");
+        if (task) {
+            task.remove();
+        }
+    }
+
+    // Función para manejar el clic en el botón de editar
+    function handleEditTask(event) {
+        const task = event.target.closest(".box");
+        if (task) {
+            openModal(task);
+        }
+    }
+
+    // Añadir eventos de clic para botones de editar y eliminar a todas las tareas
+    function addTaskActionListeners(task) {
+        const editButton = task.querySelector(".edit-task-button");
+        const deleteButton = task.querySelector(".delete-task-button");
+
+        if (editButton) {
+            editButton.addEventListener("click", handleEditTask);
+        }
+        if (deleteButton) {
+            deleteButton.addEventListener("click", handleDeleteTask);
+        }
+    }
 });
