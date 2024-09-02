@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const taskPriority = document.querySelector("#taskPriority");
     const taskDueDate = document.querySelector("#taskDueDate");
     const taskState = document.querySelector("#taskState");
+    const searchBar = document.querySelector("#searchBar");
 
     let editingTask = null;
     let draggedTask = null;
@@ -56,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        if(!isDateValid(taskDueDate.value)){
+        if (!isDateValid(taskDueDate.value)) {
             alert("Fecha invalida. La fecha ingresada es de un dia anterior al actual");
             return;
         }
@@ -68,23 +69,23 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error(`Column with ID ${state} not found.`);
             return;
         }
-        
-        function isDateValid(date){
+
+        function isDateValid(date) {
             const fechaActual = new Date();
-            const [añoA, mesA, diaA] = [parseInt(fechaActual.getFullYear()),parseInt(fechaActual.getMonth())+1,parseInt(fechaActual.getDate())];
+            const [añoA, mesA, diaA] = [parseInt(fechaActual.getFullYear()), parseInt(fechaActual.getMonth()) + 1, parseInt(fechaActual.getDate())];
             const separado = date.split("-");
-            const [añoD, mesD, diaD] = [parseInt(separado[0]),parseInt(separado[1]),parseInt(separado[2])];
-            if(añoD === añoA || añoD > añoA){
-                if(mesD === mesA || mesD > mesA){
-                    if (diaD === diaA || diaD > diaA){
+            const [añoD, mesD, diaD] = [parseInt(separado[0]), parseInt(separado[1]), parseInt(separado[2])];
+            if (añoD === añoA || añoD > añoA) {
+                if (mesD === mesA || mesD > mesA) {
+                    if (diaD === diaA || diaD > diaA) {
                         return true;
-                    }else{
+                    } else {
                         return false;
                     }
-                } else{
+                } else {
                     return false;
                 }
-            }else{
+            } else {
                 return false;
             }
         }
@@ -93,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
         newTask.className = "box";
         newTask.draggable = true;
 
-        if(taskPriority.value ==="High"){
+        if (taskPriority.value === "High") {
             newTask.innerHTML = `
             <h4 id="highPriority">  </h4>
             <h3 class="title is-5">${taskTitle.value}</h3>
@@ -103,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <p><strong>Fecha límite:</strong> ${taskDueDate.value}</p>
         `;
         }
-        if(taskPriority.value ==="Medium"){
+        if (taskPriority.value === "Medium") {
             newTask.innerHTML = `
             <h4 id="mediumPriority">  </h4>
             <h3 class="title is-5">${taskTitle.value}</h3>
@@ -113,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <p><strong>Fecha límite:</strong> ${taskDueDate.value}</p>
         `;
         }
-        if(taskPriority.value ==="Low"){
+        if (taskPriority.value === "Low") {
             newTask.innerHTML = `
             <h4 id="lowPriority">  </h4>
             <h3 class="title is-5">${taskTitle.value}</h3>
@@ -179,4 +180,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelectorAll(".box").forEach(task => addDragAndDropListeners(task));
     setupColumns();
+
+    function filterTasks(query) {
+        const tasks = document.querySelectorAll(".box");
+        tasks.forEach(task => {
+            const title = task.querySelector("h3").textContent.toLowerCase();
+            const description = task.querySelector("p:nth-of-type(1)").textContent.toLowerCase();
+            const assigned = task.querySelector("p:nth-of-type(2)").textContent.toLowerCase();
+
+            if (title.includes(query) || description.includes(query) || assigned.includes(query)) {
+                task.style.display = "block";
+            } else {
+                task.style.display = "none";
+            }
+        });
+    }
+
+    searchBar.addEventListener("input", () => {
+        const query = searchBar.value.toLowerCase();
+        filterTasks(query);
+    });
 });
