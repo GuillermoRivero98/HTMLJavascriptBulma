@@ -178,6 +178,13 @@ body.dark-mode {
         max-height: 70vh;
         overflow-y: auto;
     }
+
+    #taskColumns {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
 }
 @media (min-width: 1440px){
     
@@ -205,25 +212,15 @@ body.dark-mode {
     .column {
         flex: 1 0 100%;
     }
+    #taskColumns {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+    
 }
 
-@media (max-width: 425px) {
-    .new-task-button {
-        position: fixed;
-        bottom: 10px;
-        right: 10px;
-    }
-
-    .columns {
-        flex-direction: column;
-        overflow-y: auto;
-    }
-
-    .column {   
-        max-height: 70vh;
-        overflow-y: auto;
-    }
-}
 .column {
     max-height: 80vh;
     overflow-y: auto;
