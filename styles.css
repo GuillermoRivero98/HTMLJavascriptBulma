@@ -25,14 +25,14 @@ h2 {
 }
 
 .column {
-    min-width: 300px; /* Asegura un ancho mínimo para cada columna */
-    margin-right: 15px; /* Añade un margen entre las columnas */
-    flex-grow: 0; /* Evita que las columnas crezcan más allá de su tamaño natural */
-    flex-basis: calc(20% - 15px); /* Ajusta el tamaño de cada columna */
+    min-width: 300px; 
+    margin-right: 15px; 
+    flex-grow: 0; 
+    flex-basis: calc(20% - 15px); 
 }
 
 .column:last-child {
-    margin-right: 0; /* Elimina el margen derecho de la última columna */
+    margin-right: 0; 
 }
 
 #highPriority {

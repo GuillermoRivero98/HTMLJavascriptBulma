@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 0);
         });
 
-        addTaskActionListeners(task); // Añadir listeners para editar y eliminar
+        addTaskActionListeners(task); 
     }
 
     function setupColumns() {
@@ -195,7 +195,6 @@ document.addEventListener("DOMContentLoaded", () => {
         filterTasks(query);
     });
 
-    // Función para manejar el clic en el botón de eliminar
     function handleDeleteTask(event) {
         const task = event.target.closest(".box");
         if (task) {
@@ -203,7 +202,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Función para manejar el clic en el botón de editar
     function handleEditTask(event) {
         const task = event.target.closest(".box");
         if (task) {
@@ -211,7 +209,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Añadir eventos de clic para botones de editar y eliminar a todas las tareas
     function addTaskActionListeners(task) {
         const editButton = task.querySelector(".edit-task-button");
         const deleteButton = task.querySelector(".delete-task-button");
