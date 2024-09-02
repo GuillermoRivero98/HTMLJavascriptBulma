@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
         //console.log(priorityClass);
         //console.log(typeof(priorityClass));
         newTask.innerHTML = `
-            <h4 class="priority-indicator ${priorityClass}"></h4>
+            <h4 id="${priorityClass}"></h4>
             <h3 class="title is-5">${taskTitle.value}</h3>
             <p>${taskDescription.value || "Sin descripción"}</p>
             <p><strong>Asignado a:</strong> ${taskAssigned.value}</p>
