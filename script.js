@@ -103,7 +103,8 @@ document.addEventListener("DOMContentLoaded", () => {
         } else if (taskPriority.value === "Low") {
             priorityClass = "lowPriority";
         }
-
+        //console.log(priorityClass);
+        //console.log(typeof(priorityClass));
         newTask.innerHTML = `
             <h4 class="priority-indicator ${priorityClass}"></h4>
             <h3 class="title is-5">${taskTitle.value}</h3>
