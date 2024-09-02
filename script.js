@@ -122,6 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (editingTask) {
             editingTask.replaceWith(newTask);
+            column.appendChild(newTask);
             editingTask = null;
         } else {
             column.appendChild(newTask);
