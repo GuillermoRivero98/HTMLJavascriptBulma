@@ -88,7 +88,7 @@ h2 {
 }
 
 .modal-background {
-    background-color: black;
+    background-color: opacity(0.5);
 }
 
 .modal-content {
@@ -133,7 +133,7 @@ body.dark-mode .modal-content {
 }
 
 body {
-    background-image: url('background.jpg');
+    background-color: lightblue;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -142,7 +142,7 @@ body {
 }
 
 body.dark-mode {
-    background-image: url('background\ darkmode.jpg');
+    background-color: darkblue;
 }
 
 
